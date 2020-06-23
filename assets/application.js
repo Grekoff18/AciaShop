@@ -12,6 +12,22 @@ var description = document.querySelector('.description p')
 var imgLink;
 var productCurrentTitle;
 var productCurrentPrice;
+var products = [];
+var productss = [];
+var counter = 0;
+
+window.onload = function() {
+    async function sendRequest() {
+        var response = await fetch("https://kgrekoff.myshopify.com/admin/products.json")
+        var content = await response.json()
+        var item;
+        for(item in content) {
+            products = content[item]
+        }
+    }
+    sendRequest();
+}
+
 
 for(var i = 0; i < productItem.length; i++) {
     productItem[i].addEventListener('click', function(event) {
@@ -53,7 +69,6 @@ for(var i = 0; i < productItem.length; i++) {
         setTimeout(function() {
             flexItemRow.style.opacity = '1';
         }, 3500)
-        
     })
     
 }
