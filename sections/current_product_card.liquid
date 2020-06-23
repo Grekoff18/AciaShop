@@ -1,0 +1,55 @@
+{% assign current_item =  %}
+
+
+
+<div id="shopify-section-header" class="shopify-section">
+    <div class="current_product-card">
+        <img class="featured-image" id="ProductPhotoImg">
+        <div class="flex-item_row">
+        <h1 class="featured-product__title"></h1>
+        <p id="price"></p>
+        <div class="description">
+            <p></p>
+        </div>
+        <form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
+      
+        <select class="product-select" name="id" id="productSelect">
+      
+            {% for variant in product.variants %}
+      
+            {% if variant.available %}
+                <option value="{{ variant.id }}">
+                {{ variant.title }} - {{ variant.price | money_with_currency }}
+                </option>
+            {% else %}
+                <option disabled="disabled">
+                {{ variant.title }} - sold out
+                </option>
+            {% endif %}
+      
+            {% endfor %}
+      
+        </select>
+      
+        
+      
+        <div class="quantity-block">
+            <label for="Quantity">quantity</label>
+            <input type="number" id="Quantity" name="quantity" value="1" min="1">
+        </div> 
+        <div class="card-button-block">
+            <button type="submit" name="add" id="AddToCart">Add to cart</button>
+            <button class='come-back-animate'> Back to shop </button>
+        </div>
+        </form>
+        </div>
+      </div>
+</div>
+
+
+
+<!-- {% for image in product.images %}
+        <a href="{{ image.src | img_url: 'large' }}">
+            <img class="featured-image__childrens" src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+        </a>
+        {% endfor %} -->

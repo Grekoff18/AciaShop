@@ -1,0 +1,11 @@
+
+<div class="row">
+  {% for product in collections.frontpage.products limit:4 %}
+    <div class="product-item col-4 col-sm">
+      {% unless product.available %}<br><strong>sold out</strong>{% endunless %}
+      <img class="product-item__img" src="{{ product.featured_image.src | | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+      <p class="product-item__title">{{ product.title }}</p>
+      <p class="product-item__price">{{ product.price | money }}</p>
+    </div>
+  {% endfor %}
+</div>
