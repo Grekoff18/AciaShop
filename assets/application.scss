@@ -115,8 +115,10 @@ body {
     border-left-color: #ff00f0;
     border-right-color: #00fff6;
     border-bottom-color: #ff00f0;
+    opacity: 0;
     margin-right: 40px;
-    transition-duration: 3s;
+    transition-duration: 1.7s;
+    transition-timing-function: ease-in-out;
 }
 
 .featured-product__title {

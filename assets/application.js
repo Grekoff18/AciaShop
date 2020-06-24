@@ -12,18 +12,39 @@ var description = document.querySelector('.description p')
 var imgLink;
 var productCurrentTitle;
 var productCurrentPrice;
+var response;
+var content;
+var item;
+var childs;
+var product;
+var currentProductCardId;
 var products = [];
-var productss = [];
-var counter = 0;
+var productDescriptions = [];
+var productId = [];
+var productSizes = [];
+var productColors = [];
+var productSubImages = [];
+
 
 window.onload = function() {
     async function sendRequest() {
-        var response = await fetch("https://kgrekoff.myshopify.com/admin/products.json")
-        var content = await response.json()
-        var item;
+        response = await fetch("https://kgrekoff.myshopify.com/admin/products.json")
+        content = await response.json()
         for(item in content) {
             products = content[item]
         }
+        function sortArray() {
+            products.forEach(function(product, index, products) {
+                productDescriptions.push(product.body_html)
+                productId.push(product.id)
+                // console.log(product, product.images) 
+                product.images.forEach(function(childs) {
+                    // console.log(childs) 
+                    console.log(productDescriptions) 
+                })
+            }) 
+        }
+        sortArray();
     }
     sendRequest();
 }
@@ -46,6 +67,7 @@ for(var i = 0; i < productItem.length; i++) {
         currentProductCard.style.width = '70%';
         
         if(typeof(event) != 'undefined') {
+            currentProductCardId = this.getAttribute('id')
             imgLink = this.children[0].getAttribute('src')
             productCurrentTitle = this.children[1].innerText
             productCurrentPrice = this.children[2].innerText
@@ -62,13 +84,14 @@ for(var i = 0; i < productItem.length; i++) {
         }, 1000)
 
         setTimeout(function() {
+            featuredImage.style.opacity = '1';
             featuredImage.style.width = '500px';
             featuredImage.style.height = '630px';              
         }, 500)
 
         setTimeout(function() {
             flexItemRow.style.opacity = '1';
-        }, 3500)
+        }, 2500)
     })
     
 }
@@ -81,7 +104,7 @@ returnBtn.addEventListener('click', function(event) {
     container.classList.remove('slick');
     row.style.flexDirection = null;
     row.style.alignItems = null;
-    
+    featuredImage.style.opacity = '0';
     featuredImage.removeAttribute('src')
     featuredImage.removeAttribute('alt')
     featuredTitle.innerText = ""
